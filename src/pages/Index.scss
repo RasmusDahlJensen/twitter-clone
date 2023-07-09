@@ -1,0 +1,20 @@
+body {
+	margin: 0;
+	background-color: black;
+}
+.mainContent {
+	display: flex;
+	flex-direction: row;
+}
+
+.bg {
+	background-image: url("../media/img/twitterbg.png");
+	width: 1050px;
+	height: 850px;
+	background-position: center;
+	background-size: cover;
+}
+h1,
+p {
+	color: white;
+}
