@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Index.scss";
 import twitterSVG from "../media/Twitter logo/SVG/Logo white.svg";
 import { SignUp } from "../components/SignUp";
+import { Login } from "../components/Login";
 
 export const Index = () => {
 	const [modal, setModal] = useState(false);
@@ -56,6 +57,8 @@ export const Index = () => {
 					<button button className="createAccountBtn">
 						Create account
 					</button>
+					{/* <SignUp /> */}
+					<Login />
 					<h6>
 						By signing up, you agree to the Terms of Service and Privacy Policy,
 						including Cookie Use.
