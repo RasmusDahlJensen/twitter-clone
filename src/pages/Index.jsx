@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./Index.scss";
 import twitterSVG from "../media/Twitter logo/SVG/Logo white.svg";
 import { SignUp } from "../components/SignUp";
-// import googleSVG from "../media/googleSVG20.svg";
 
 export const Index = () => {
 	const [modal, setModal] = useState(false);
