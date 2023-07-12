@@ -59,7 +59,7 @@ a {
 
 .someSignupBtn,
 .createAccountBtn,
-.signInBtn {
+.loginBtn {
 	background-color: white;
 	max-width: 300px;
 	border-color: #333639;
@@ -83,7 +83,7 @@ a {
 	background-color: #1d9bf0;
 	color: white;
 }
-.signInBtn {
+.loginBtn {
 	background-color: black;
 	color: #1d9bf0;
 }
@@ -99,7 +99,7 @@ a {
 	margin-left: 8px; // Adjust the spacing between the icon and text as needed
 }
 
-.signupDiv {
+.loginDiv {
 	display: flex;
 	flex-direction: column;
 	margin-top: 50px;

@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Index } from "./pages/Index";
 import { Home } from "./pages/Home";
 import { Profile } from "./pages/Profile";
+import { Protected } from "./components/ProtectedRoute";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

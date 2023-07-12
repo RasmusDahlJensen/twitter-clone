@@ -5,10 +5,29 @@ import { SignUp } from "../components/SignUp";
 import { Login } from "../components/Login";
 
 export const Index = () => {
-	const [modal, setModal] = useState(false);
+	const [signUpModal, setSignUpModal] = useState(false);
+	const [loginModal, setLoginModal] = useState(false);
+
+	const handleSignUpModal = () => {
+		if (signUpModal === false) {
+			setSignUpModal(true);
+			console.log(signUpModal);
+		} else {
+			setSignUpModal(false);
+			console.log(signUpModal);
+		}
+	};
+
+	const handleLoginModal = () => {
+		if (loginModal === false) {
+			setLoginModal(true);
+		} else {
+			setLoginModal(false);
+		}
+	};
 
 	return (
-		<body className="index">
+		<div className="index">
 			<div className="mainContent">
 				<aside className="bg">
 					<img src={twitterSVG} alt="twitterLogo" />
@@ -49,23 +68,27 @@ export const Index = () => {
 						</span>
 						Sign up with google
 					</button>
-					<div class="line-container">
-						<div class="line"></div>
-						<p class="text">or</p>
-						<div class="line"></div>
+					<div className="line-container">
+						<div className="line"></div>
+						<p className="text">or</p>
+						<div className="line"></div>
 					</div>
-					<button button className="createAccountBtn">
+					<button
+						button
+						className="createAccountBtn"
+						onClick={handleSignUpModal}
+					>
 						Create account
 					</button>
-					{/* <SignUp /> */}
-					<Login />
+					{signUpModal && <SignUp />}
+					{loginModal && <Login />}
 					<h6>
 						By signing up, you agree to the Terms of Service and Privacy Policy,
 						including Cookie Use.
 					</h6>
-					<div className="signupDiv">
+					<div className="loginDiv">
 						<p>Already have an account?</p>
-						<button button className="signInBtn">
+						<button button className="loginBtn" onClick={handleLoginModal}>
 							Sign in
 						</button>
 					</div>
@@ -126,6 +149,6 @@ export const Index = () => {
 					</ul>
 				</li>
 			</footer>
-		</body>
+		</div>
 	);
 };
