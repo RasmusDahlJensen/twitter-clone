@@ -6,7 +6,7 @@ const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export const SignUp = () => {
+export const SignUp = ({ onSuccess }) => {
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -30,16 +30,27 @@ export const SignUp = () => {
 				setError(error.message);
 			} else {
 				// SignUp successful, handle next steps
+				onSuccess(); // Call the onSuccess callback to close the modal
 			}
 		} catch (error) {
 			setError(error.message);
 		}
 	};
 
+	const handleCloseModal = () => {
+		setUsername("");
+		setEmail("");
+		setPassword("");
+		setError(null);
+		onSuccess(); // Call the onSuccess callback to close the modal
+	};
+
 	return (
 		<div className="formWrapper">
 			<form onSubmit={handleSignUp} className="formContent">
-				<span class="close">&times;</span>
+				<span className="close" onClick={handleCloseModal}>
+					&times;
+				</span>
 				<div className="formInputs">
 					<input
 						type="text"
