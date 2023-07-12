@@ -8,6 +8,44 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	.close {
+		position: relative;
+		z-index: 1;
+		color: #f0f0f0;
+		font-size: 24px;
+		cursor: pointer;
+	}
+
+	.close::before {
+		content: "";
+		position: absolute;
+		top: 12;
+		left: -5px;
+		transform: translate(-10%, -5%);
+		background-color: #f0f0f020;
+		border-radius: 50%;
+		width: 30px;
+		height: 30px;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.close:hover::before {
+		opacity: 1;
+	}
+
+	.submitBtn:hover {
+		background-color: #ffffff;
+	}
+}
+
+.formContent {
+	/* Existing styles */
+}
+
+.submitBtn {
+	/* Existing styles */
 }
 
 .formContent {
@@ -56,12 +94,4 @@
 	font-family: "Roboto", sans-serif;
 	color: red;
 	margin-top: 5px;
-}
-
-.close {
-	font-size: 30px;
-	font-weight: 100;
-	color: white;
-	margin: 0;
-	padding: 0;
 }

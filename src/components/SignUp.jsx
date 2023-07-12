@@ -29,8 +29,7 @@ export const SignUp = ({ onSuccess }) => {
 			if (error) {
 				setError(error.message);
 			} else {
-				// SignUp successful, handle next steps
-				onSuccess(); // Call the onSuccess callback to close the modal
+				onSuccess(); // Trigger onSuccess callback
 			}
 		} catch (error) {
 			setError(error.message);
@@ -41,8 +40,7 @@ export const SignUp = ({ onSuccess }) => {
 		setUsername("");
 		setEmail("");
 		setPassword("");
-		setError(null);
-		onSuccess(); // Call the onSuccess callback to close the modal
+		onSuccess(); // Trigger onSuccess callback
 	};
 
 	return (
