@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
+import "./Login.scss";
 
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export const Login = () => {
+export const Login = ({ onSuccess, onClose }) => {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState(null);
 
-	const handleSignUp = async (e) => {
+	const handleLogin = async (e) => {
 		e.preventDefault();
 
 		try {
@@ -24,34 +25,48 @@ export const Login = () => {
 			if (error) {
 				setError(error.message);
 			} else {
-				navigate("/home");
+				onSuccess(); // Trigger onSuccess callback
+				navigate("/home"); // Redirect to the homepage after successful login
 			}
 		} catch (error) {
 			setError(error.message);
 		}
 	};
 
+	const handleCloseModal = () => {
+		setEmail("");
+		setPassword("");
+		onSuccess();
+	};
+
 	return (
-		<div>
-			<form onSubmit={handleSignUp}>
-				<label htmlFor="email">Email:</label>
-				<input
-					type="email"
-					id="email"
-					name="email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-				/>
-				<label htmlFor="password">Password:</label>
-				<input
-					type="password"
-					id="password"
-					name="password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-				/>
-				{error && <p>{error}</p>}
-				<button type="submit">Sign up</button>
+		<div className="formWrapper">
+			<form onSubmit={handleLogin} className="formContent">
+				<span className="close" onClick={handleCloseModal}>
+					&times;
+				</span>
+				<div className="formInputs">
+					<input
+						type="email"
+						id="email"
+						name="email"
+						placeholder="Email:"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+					/>
+					<input
+						type="password"
+						id="password"
+						name="password"
+						placeholder="Password:"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+					/>
+					{error && <div className="error">{error}</div>}
+				</div>
+				<button type="submit" className="submitBtn">
+					Sign In
+				</button>
 			</form>
 		</div>
 	);

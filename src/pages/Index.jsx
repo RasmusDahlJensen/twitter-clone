@@ -21,6 +21,10 @@ export const Index = () => {
 		setSignUpModal(false);
 	};
 
+	const handleLoginSuccess = () => {
+		setLoginModal(false);
+	};
+
 	return (
 		<div className="index">
 			<div className="mainContent">
@@ -76,7 +80,7 @@ c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.
 						Create account
 					</button>
 					{signUpModal && <SignUp onSuccess={handleSignUpSuccess} />}
-					{loginModal && <Login />}
+					{loginModal && <Login onSuccess={handleLoginSuccess} />}
 					<h6>
 						By signing up, you agree to the Terms of Service and Privacy Policy,
 						including Cookie Use.
