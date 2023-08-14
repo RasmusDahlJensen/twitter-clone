@@ -24,6 +24,7 @@ export const Login = ({ onSuccess, onClose }) => {
 			if (error) {
 				setError(error.message);
 			} else {
+				console.log(data);
 				onSuccess(); // Trigger onSuccess callback
 				navigate("/home"); // Redirect to the homepage after successful login
 			}
