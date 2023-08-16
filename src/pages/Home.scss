@@ -1,4 +1,27 @@
 body {
 	margin: 0;
-	// background-color: white;
+	background-color: black;
+	height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+	font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+p {
+	color: white;
+}
+
+.main {
+	display: flex;
+	justify-content: space-around;
 }
