@@ -72,13 +72,10 @@ c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.
 						<p className="text">or</p>
 						<div className="line"></div>
 					</div>
-					<button
-						button
-						className="createAccountBtn"
-						onClick={handleSignUpModal}
-					>
+					<button className="createAccountBtn" onClick={handleSignUpModal}>
 						Create account
 					</button>
+
 					{signUpModal && <SignUp onSuccess={handleSignUpSuccess} />}
 					{loginModal && <Login onSuccess={handleLoginSuccess} />}
 					<h6>

@@ -16,20 +16,24 @@ export const SignUp = ({ onSuccess }) => {
 		e.preventDefault();
 
 		try {
-			const { data, error } = await supabase.auth.signUp({
+			const { user, error } = await supabase.auth.signUp({
 				email: email,
 				password: password,
-				options: {
-					data: {
-						username: username,
-					},
-				},
 			});
 
 			if (error) {
 				setError(error.message);
 			} else {
-				onSuccess(); // Trigger onSuccess callback
+				// User registration successful, now insert into user_profiles table
+				const { data, error } = await supabase
+					.from("user_profiles")
+					.insert([{ user_id: user.id, username: username }]);
+
+				if (error) {
+					setError(error.message);
+				} else {
+					onSuccess(); // Trigger onSuccess callback
+				}
 			}
 		} catch (error) {
 			setError(error.message);
