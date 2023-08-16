@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import "./SignUp.scss";
 
@@ -7,7 +7,6 @@ const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const SignUp = ({ onSuccess }) => {
-	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState(null);
@@ -16,24 +15,15 @@ export const SignUp = ({ onSuccess }) => {
 		e.preventDefault();
 
 		try {
-			const { user, error } = await supabase.auth.signUp({
+			const { user, error: signUpError } = await supabase.auth.signUp({
 				email: email,
 				password: password,
 			});
 
-			if (error) {
-				setError(error.message);
+			if (signUpError) {
+				setError(signUpError.message);
 			} else {
-				// User registration successful, now insert into user_profiles table
-				const { data, error } = await supabase
-					.from("user_profiles")
-					.insert([{ user_id: user.id, username: username }]);
-
-				if (error) {
-					setError(error.message);
-				} else {
-					onSuccess(); // Trigger onSuccess callback
-				}
+				onSuccess(); // Trigger onSuccess callback
 			}
 		} catch (error) {
 			setError(error.message);
@@ -41,7 +31,6 @@ export const SignUp = ({ onSuccess }) => {
 	};
 
 	const handleCloseModal = () => {
-		setUsername("");
 		setEmail("");
 		setPassword("");
 		onSuccess(); // Trigger onSuccess callback
@@ -54,14 +43,6 @@ export const SignUp = ({ onSuccess }) => {
 					&times;
 				</span>
 				<div className="formInputs">
-					<input
-						type="text"
-						id="username"
-						name="username"
-						placeholder="Username:"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-					/>
 					<input
 						type="email"
 						id="email"
