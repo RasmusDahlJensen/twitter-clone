@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import "./SignUp.scss";
 
@@ -9,13 +9,14 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export const SignUp = ({ onSuccess }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [username, setUsername] = useState("");
 	const [error, setError] = useState(null);
 
-	const handleSignUp = async (e) => {
+	const handleSignup = async (e) => {
 		e.preventDefault();
 
 		try {
-			const { user, error: signUpError } = await supabase.auth.signUp({
+			const { error: signUpError } = await supabase.auth.signUp({
 				email: email,
 				password: password,
 			});
@@ -23,25 +24,31 @@ export const SignUp = ({ onSuccess }) => {
 			if (signUpError) {
 				setError(signUpError.message);
 			} else {
-				onSuccess(); // Trigger onSuccess callback
+				// Insert user profile after successful signup with email and Bio
+				const { error: profileInsertError } = await supabase
+					.from("user_profiles")
+					.insert([
+						{
+							email: email,
+							bio: "Please customize your bio",
+							username: username,
+						},
+					]);
+
+				if (profileInsertError) {
+					setError(profileInsertError.message);
+				} else {
+					onSuccess(); // Trigger onSuccess callback
+				}
 			}
 		} catch (error) {
 			setError(error.message);
 		}
 	};
 
-	const handleCloseModal = () => {
-		setEmail("");
-		setPassword("");
-		onSuccess(); // Trigger onSuccess callback
-	};
-
 	return (
 		<div className="formWrapper">
-			<form onSubmit={handleSignUp} className="formContent">
-				<span className="close" onClick={handleCloseModal}>
-					&times;
-				</span>
+			<form onSubmit={handleSignup} className="formContent">
 				<div className="formInputs">
 					<input
 						type="email"
@@ -58,6 +65,14 @@ export const SignUp = ({ onSuccess }) => {
 						placeholder="Password:"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
+					/>
+					<input
+						type="text"
+						id="username"
+						name="username"
+						placeholder="Username:"
+						value={username}
+						onChange={(e) => setUsername(e.target.value)}
 					/>
 					{error && <div className="error">{error}</div>}
 				</div>

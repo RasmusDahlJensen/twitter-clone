@@ -24,7 +24,7 @@ export const Login = ({ onSuccess, onClose }) => {
 			if (error) {
 				setError(error.message);
 			} else {
-				localStorage.setItem("userId", data.user.id);
+				localStorage.setItem("userEmail", data.user.email);
 				onSuccess(); // Trigger onSuccess callback
 				navigate("/home"); // Redirect to the homepage after successful login
 			}
